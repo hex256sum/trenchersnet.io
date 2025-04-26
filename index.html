@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOCKCHAIN TRENCH NETWORK | SECRET ACCESS</title>
+    <style>
+        /* ===== BASE STYLES ===== */
+        :root {
+            --color-bg: #0a0a0a;
+            --color-dark: #000000;
+            --color-text: #e0e0e0;
+            --color-primary: #00f0ff; /* Cyber teal */
+            --color-secondary: #7b2dff; /* Deep purple */
+            --color-accent: #ff4d00; /* Neon orange */
+            --color-gray-700: #1a1a1a;
+            --color-gray-600: #2a2a2a;
+            --color-gray-500: #444;
+            --color-gray-400: #777;
+            --color-success: #00ff88;
+            --color-error: #ff3860;
+            --color-warning: #ff9f43;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            color: black;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            color: var(--color-primary);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 100px;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, rgba(10, 10, 10, 1) 70%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="2" height="2" x="20" y="20" fill="rgba(0, 240, 255, 0.1)"/></svg>');
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--color-gray-400);
+            font-weight: 300;
+        }
+
+        .hero-btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        /* ===== TRENCH LINES ANIMATION ===== */
+        .trench-lines {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .trench-line {
+            position: absolute;
+            bottom: 0;
+            height: 0;
+            width: 3%;
+            background: linear-gradient(to top, var(--color-primary), transparent);
+            opacity: 0.3;
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            background: var(--color-dark);
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            color: var(--color-gray-400);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(15, 15, 15, 0.7);
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-gray-600);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-primary);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1);
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.3;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .feature-desc {
+            color: var(--color-gray-400);
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        /* ===== FORM SECTION ===== */
+        .form-section {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="1" height="1" x="10" y="10" fill="rgba(0, 240, 255, 0.05)"/></svg>');
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(10, 10, 10, 0.9);
+            border-radius: 8px;
+            border: 1px solid var(--color-gray-600);
+            padding: 3rem;
+            box-shadow: 0 10px 50px rgba(0, 240, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .form-subtitle {
+            color: var(--color-gray-400);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-gray-400);
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid var(--color-gray-600);
+            border-radius: 4px;
+            color: var(--color-text);
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .error-message {
+            color: var(--color-error);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            color: var(--color-success);
+        }
+
+        .success-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .success-text {
+            color: var(--color-gray-400);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--color-dark);
+            border-top: 1px solid var(--color-gray-600);
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .copyright {
+            color: var(--color-gray-500);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* ===== RESPONSIVE ADJUSTMENTS ===== */
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 0;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                height: 60px;
+            }
+
+            .hero {
+                padding-top: 100px;
+                padding-bottom: 80px;
+            }
+
+            .btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.8rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <span class="text-gradient">TRENCHNET</span>
+            </div>
+            <button id="joinBtn" class="btn btn-primary">
+                Request Access
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="hero-title text-gradient animate-float">
+                BLOCKCHAIN TRENCH NETWORK
+            </h1>
+            <p class="hero-subtitle">
+                Navigate the blockchain battlefield through encrypted sluices. 
+                Bypass the noise and join an <span class="text-gradient">elite network</span> of sleuths, hustlers, and trench warriors.
+            </p>
+            <button id="heroJoinBtn" class="btn btn-primary hero-btn">
+                SECURE ENTRY
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Trench Lines Animation -->
+        <div class="trench-lines" id="trenchLines"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-gradient">NETWORK ADVANTAGES</h2>
+                <p class="section-subtitle">
+                    Access the tools and intelligence to dominate the blockchain trenches
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card animate-fadeInUp" style="animation-delay: 0.1s">
+                    <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <h3 class="feature-title">BLOCKCHAIN SLEUTHING</h3>
+                    <p class="feature-desc">
+                        Real-time transaction tracking, MEV detection, and dark pool monitoring to stay ahead of the game.
+                    </p>
+                </div>
+
+                <div class="feature-card animate-fadeInUp" style="animation-delay: 0.3s">
+                    <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <h3 class="feature-title">BLOCKCHAIN HUSTLING</h3>
+                    <p class="feature-desc">
+                        Private alpha calls, sniper bots, and arbitrage tools to maximize your edge in the trenches.
+                    </p>
+                </div>
+
+                <div class="feature-card animate-fadeInUp" style="animation-delay: 0.5s">
+                    <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    <h3 class="feature-title">TRENCH WARFARE</h3>
+                    <p class="feature-desc">
+                        Secure communication channels, counter-surveillance tools, and tactical withdrawal strategies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="joinForm" class="form-section section">
+        <div class="container">
+            <div class="form-container">
+                <div id="formContent">
+                    <h2 class="form-title text-gradient">REQUEST ACCESS</h2>
+                    <p class="form-subtitle">
+                        Application review takes 3-5 days. Approved members receive encrypted onboarding.
+                    </p>
+
+                    <form id="accessForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">OPERATIVE NAME</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Your identifier" required>
+                            <div id="nameError" class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">SECURE CONTACT</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="encrypted@comm.channel" required>
+                            <div id="emailError" class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="motivation" class="form-label">WHY JOIN THE TRENCHES?</label>
+                            <textarea id="motivation" name="motivation" class="form-input form-textarea" placeholder="State your skills, experience, and value proposition (minimum 50 characters)" required minlength="50"></textarea>
+                            <div id="motivationError" class="error-message"></div>
+                        </div>
+
+                        <div id="formError" class="error-message mb-4"></div>
+
+                        <button type="submit" id="submitBtn" class="btn btn-primary w-full">
+                            <span id="submitText">SUBMIT FOR VERIFICATION</span>
+                            <span id="submitSpinner" style="display: none;">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                ENCRYPTING...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span class="text-gradient">TRENCHNET</span>
+                </div>
+                <p class="copyright">
+                    &copy; <span id="year"></span> BLOCKCHAIN TRENCH NETWORK. STRICTLY CONFIDENTIAL.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Create trench lines animation
+            const trenchLines = document.getElementById('trenchLines');
+            for (let i = 0; i < 20; i++) {
+                const line = document.createElement('div');
+                line.className = 'trench-line';
+                line.style.left = `${i * 5}%`;
+                
+                // Random height animation
+                const height = Math.random() * 60 + 20;
+                line.style.animation = `grow ${2 + Math.random() * 2}s infinite alternate ${i * 0.1}s`;
+                
+                // Add keyframes dynamically
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes grow {
+                        from { height: 0; opacity: 0; }
+                        to { height: ${height}px; opacity: 0.5; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                trenchLines.appendChild(line);
+            }
+
+            // Scroll to form function
+            function scrollToForm() {
+                document.getElementById('joinForm').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+
+            // Add event listeners to join buttons
+            document.getElementById('joinBtn').addEventListener('click', scrollToForm);
+            document.getElementById('heroJoinBtn').addEventListener('click', scrollToForm);
+
+            // Form validation and submission
+            const form = document.getElementById('accessForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset errors
+                document.getElementById('nameError').textContent = '';
+                document.getElementById('emailError').textContent = '';
+                document.getElementById('motivationError').textContent = '';
+                document.getElementById('formError').textContent = '';
+                
+                // Get form values
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const motivation = document.getElementById('motivation').value.trim();
+                let isValid = true;
+                
+                // Validate name
+                if (!name) {
+                    document.getElementById('nameError').textContent = 'Operative name required';
+                    isValid = false;
+                }
+                
+                // Validate email
+                if (!email) {
+                    document.getElementById('emailError').textContent = 'Secure contact required';
+                    isValid = false;
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById('emailError').textContent = 'Invalid secure channel';
+                    isValid = false;
+                }
+                
+                // Validate motivation
+                if (!motivation) {
+                    document.getElementById('motivationError').textContent = 'Value proposition required';
+                    isValid = false;
+                } else if (motivation.length < 50) {
+                    document.getElementById('motivationError').textContent = 'Minimum 50 characters required';
+                    isValid = false;
+                }
+                
+                if (!isValid) return;
+                
+                // Disable submit button
+                const submitBtn = document.getElementById('submitBtn');
+                const submitText = document.getElementById('submitText');
+                const submitSpinner = document.getElementById('submitSpinner');
+                
+                submitBtn.disabled = true;
+                submitText.style.display = 'none';
+                submitSpinner.style.display = 'inline-flex';
+                
+                // Simulate form submission (replace with actual API call)
+                setTimeout(() => {
+                    // In production, replace with:
+                    // fetch('/api/request-access', { method: 'POST', body: JSON.stringify({ name, email, motivation }) })
+                    // .then(response => response.json())
+                    // .then(data => { ... })
+                    
+                    showSuccessMessage();
+                }, 2000);
+            });
+            
+            function showSuccessMessage() {
+                const formContent = document.getElementById('formContent');
+                formContent.innerHTML = `
+                    <div class="success-message">
+                        <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <h3 class="success-title">ACCESS REQUEST SECURED</h3>
+                        <p class="success-text">
+                            Your application is encrypted and queued for review. Expect contact via your secure channel within 3-5 days.
+                        </p>
+                    </div>
+                `;
+            }
+            
+            // Animate elements on scroll
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.feature-card');
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.2;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Initialize
+        });
+    </script>
+</body>
+</html>
